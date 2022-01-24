@@ -19,6 +19,8 @@ class socketConnection:
         self.socketConn1 = socket.socket()
         self.socketConn2 = socket.socket()
         self.socketConn3 = socket.socket()
+        self.socketConn4 = socket.socket()
+        self.socketConn5 = socket.socket()
 
     def openSocket1(self):
         self.socketConn1.connect(("irc.chat.twitch.tv", int(settings['PORT'])))
@@ -58,6 +60,32 @@ class socketConnection:
         messageTemp = "PRIVMSG #" + settings["CHANNEL 3 NAME"] + " : " + message
         self.socketConn3.send((messageTemp + "\r\n").encode("utf-8"))
         print("Sent to C3: " + messageTemp)
+        
+    def openSocket4(self):
+        self.socketConn4.connect(("irc.chat.twitch.tv", int(settings['PORT'])))
+        self.socketConn4.send(("PASS " + settings['BOT OAUTH'] + "\r\n").encode("utf-8"))
+        self.socketConn4.send(("NICK " + settings['BOT NAME'] + "\r\n").encode("utf-8"))
+        self.socketConn4.send(("JOIN #" + settings["CHANNEL 4 NAME"] + "\r\n").encode("utf-8"))
+        return self.socketConn4
+
+    def sendMessage4(self, message):
+        print(message)
+        messageTemp = "PRIVMSG #" + settings["CHANNEL 4 NAME"] + " : " + message
+        self.socketConn4.send((messageTemp + "\r\n").encode("utf-8"))
+        print("Sent to C4: " + messageTemp)
+        
+    def openSocket5(self):
+        self.socketConn5.connect(("irc.chat.twitch.tv", int(settings['PORT'])))
+        self.socketConn5.send(("PASS " + settings['BOT OAUTH'] + "\r\n").encode("utf-8"))
+        self.socketConn5.send(("NICK " + settings['BOT NAME'] + "\r\n").encode("utf-8"))
+        self.socketConn5.send(("JOIN #" + settings["CHANNEL 5 NAME"] + "\r\n").encode("utf-8"))
+        return self.socketConn5
+
+    def sendMessage5(self, message):
+        print(message)
+        messageTemp = "PRIVMSG #" + settings["CHANNEL 5 NAME"] + " : " + message
+        self.socketConn5.send((messageTemp + "\r\n").encode("utf-8"))
+        print("Sent to C5: " + messageTemp)
 
     def joinRoom(self, s):
         readbuffer = ""
@@ -126,6 +154,8 @@ class timers:
         self.C1Cooldown = False
         self.C2Cooldown = False
         self.C3Cooldown = False
+        self.C4Cooldown = False
+        self.C5Cooldown = False
 
 
     def setTimer(self, name, duration):
@@ -146,6 +176,10 @@ class timers:
             self.C2Cooldown = False
         if timer == "3":
             self.C3Cooldown = False
+        if timer == "4":
+            self.C4Cooldown = False
+        if timer == "5":
+            self.C5Cooldown = False
 
 
 timers = timers()
