@@ -5,6 +5,7 @@ import json
 import socket
 import os
 import datetime
+from threading import Thread
 try:
     import xlsxwriter
     import xlrd
@@ -22,6 +23,32 @@ class socketConnection:
         self.socketConn4 = socket.socket()
         self.socketConn5 = socket.socket()
 
+    def sendMessage1(self, message):
+        messageThread = Thread(target=chatConnection.M1, args=(message,))
+        messageThread.start()
+        messageThread.join()
+
+    def sendMessage2(self, message):
+        messageThread = Thread(target=chatConnection.M2, args=(message,))
+        messageThread.start()
+        messageThread.join()
+
+    def sendMessage3(self, message):
+        messageThread = Thread(target=chatConnection.M3, args=(message,))
+        messageThread.start()
+        messageThread.join()
+
+    def sendMessage4(self, message):
+        messageThread = Thread(target=chatConnection.M4, args=(message,))
+        messageThread.start()
+        messageThread.join()
+
+    def sendMessage5(self, message):
+        messageThread = Thread(target=chatConnection.M5, args=(message,))
+        messageThread.start()
+        messageThread.join()
+
+
     def openSocket1(self):
         self.socketConn1.connect(("irc.chat.twitch.tv", int(settings['PORT'])))
         self.socketConn1.send(("PASS " + settings['BOT OAUTH'] + "\r\n").encode("utf-8"))
@@ -29,8 +56,7 @@ class socketConnection:
         self.socketConn1.send(("JOIN #" + settings["CHANNEL 1 NAME"] + "\r\n").encode("utf-8"))
         return self.socketConn1
 
-    def sendMessage1(self, message):
-        print(message)
+    def M1(self, message):
         messageTemp = "PRIVMSG #" + settings["CHANNEL 1 NAME"] + " : " + message
         self.socketConn1.send((messageTemp + "\r\n").encode("utf-8"))
         print("Sent to C1: " + messageTemp)
@@ -42,8 +68,7 @@ class socketConnection:
         self.socketConn2.send(("JOIN #" + settings["CHANNEL 2 NAME"] + "\r\n").encode("utf-8"))
         return self.socketConn2
 
-    def sendMessage2(self, message):
-        print(message)
+    def M2(self, message):
         messageTemp = "PRIVMSG #" + settings["CHANNEL 2 NAME"] + " : " + message
         self.socketConn2.send((messageTemp + "\r\n").encode("utf-8"))
         print("Sent to C2: " + messageTemp)
@@ -55,8 +80,7 @@ class socketConnection:
         self.socketConn3.send(("JOIN #" + settings["CHANNEL 3 NAME"] + "\r\n").encode("utf-8"))
         return self.socketConn3
 
-    def sendMessage3(self, message):
-        print(message)
+    def M3(self, message):
         messageTemp = "PRIVMSG #" + settings["CHANNEL 3 NAME"] + " : " + message
         self.socketConn3.send((messageTemp + "\r\n").encode("utf-8"))
         print("Sent to C3: " + messageTemp)
@@ -68,8 +92,7 @@ class socketConnection:
         self.socketConn4.send(("JOIN #" + settings["CHANNEL 4 NAME"] + "\r\n").encode("utf-8"))
         return self.socketConn4
 
-    def sendMessage4(self, message):
-        print(message)
+    def M4(self, message):
         messageTemp = "PRIVMSG #" + settings["CHANNEL 4 NAME"] + " : " + message
         self.socketConn4.send((messageTemp + "\r\n").encode("utf-8"))
         print("Sent to C4: " + messageTemp)
@@ -81,8 +104,7 @@ class socketConnection:
         self.socketConn5.send(("JOIN #" + settings["CHANNEL 5 NAME"] + "\r\n").encode("utf-8"))
         return self.socketConn5
 
-    def sendMessage5(self, message):
-        print(message)
+    def M5(self, message):
         messageTemp = "PRIVMSG #" + settings["CHANNEL 5 NAME"] + " : " + message
         self.socketConn5.send((messageTemp + "\r\n").encode("utf-8"))
         print("Sent to C5: " + messageTemp)

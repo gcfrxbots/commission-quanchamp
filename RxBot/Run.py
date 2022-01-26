@@ -1,4 +1,3 @@
-from threading import Thread
 from CustomCommands import CustomCommands, commands_CustomCommands
 from Initialize import *
 import random
@@ -241,6 +240,7 @@ def watchChannel5():
     readbuffer = ""
     while True:
         readbuffer = readbuffer + s.recv(1024).decode("utf-8")
+        print(readbuffer)
         temp = readbuffer.split("\n")
         readbuffer = temp.pop()
         for line in temp:
