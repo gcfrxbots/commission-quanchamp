@@ -5,6 +5,7 @@ import json
 import socket
 import os
 import datetime
+from urllib.request import urlopen
 from threading import Thread
 try:
     import xlsxwriter
@@ -24,30 +25,44 @@ class socketConnection:
         self.socketConn5 = socket.socket()
 
     def sendMessage1(self, message):
-        messageThread = Thread(target=chatConnection.M1, args=(message,))
-        messageThread.start()
-        messageThread.join()
+        if streamOnline(settings["CHANNEL 1 NAME"]):
+            messageThread = Thread(target=chatConnection.M1, args=(message,))
+            messageThread.start()
+            messageThread.join()
+        else:
+            print("Streamer offline, not sending anything")
 
     def sendMessage2(self, message):
-        messageThread = Thread(target=chatConnection.M2, args=(message,))
-        messageThread.start()
-        messageThread.join()
+        if streamOnline(settings["CHANNEL 2 NAME"]):
+            messageThread = Thread(target=chatConnection.M2, args=(message,))
+            messageThread.start()
+            messageThread.join()
+        else:
+            print("Streamer offline, not sending anything")
 
     def sendMessage3(self, message):
-        messageThread = Thread(target=chatConnection.M3, args=(message,))
-        messageThread.start()
-        messageThread.join()
+        if streamOnline(settings["CHANNEL 3 NAME"]):
+            messageThread = Thread(target=chatConnection.M3, args=(message,))
+            messageThread.start()
+            messageThread.join()
+        else:
+            print("Streamer offline, not sending anything")
 
     def sendMessage4(self, message):
-        messageThread = Thread(target=chatConnection.M4, args=(message,))
-        messageThread.start()
-        messageThread.join()
+        if streamOnline(settings["CHANNEL 4 NAME"]):
+            messageThread = Thread(target=chatConnection.M4, args=(message,))
+            messageThread.start()
+            messageThread.join()
+        else:
+            print("Streamer offline, not sending anything")
 
     def sendMessage5(self, message):
-        messageThread = Thread(target=chatConnection.M5, args=(message,))
-        messageThread.start()
-        messageThread.join()
-
+        if streamOnline(settings["CHANNEL 5 NAME"]):
+            messageThread = Thread(target=chatConnection.M5, args=(message,))
+            messageThread.start()
+            messageThread.join()
+        else:
+            print("Streamer offline, not sending anything")
 
     def openSocket1(self):
         self.socketConn1.connect(("irc.chat.twitch.tv", int(settings['PORT'])))
@@ -202,6 +217,14 @@ class timers:
             self.C4Cooldown = False
         if timer == "5":
             self.C5Cooldown = False
+
+def streamOnline(args):
+    f = urlopen("https://beta.decapi.me/twitch/uptime/" + args)
+    file = f.read().decode("utf-8")
+    if "offline" in file:
+        return False
+    else:
+        return True
 
 
 timers = timers()
