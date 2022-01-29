@@ -98,12 +98,12 @@ def watchChannel1():
             else:
                 # All these things break apart the given chat message to make things easier to work with.
                 user = misc.getUser(line)
-                message = str(misc.getMessage(line))
+                message = str(misc.getMessage(line)).strip().replace("\r", "")
                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
                 print(("CHANNEL1 - (" + misc.formatTime() + ")>> " + user + ": " + message))
 
-                if settings["TRIGGER MESSAGE"] in message and not timers.C1Cooldown:
+                if settings["TRIGGER MESSAGE"] == message and not timers.C1Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage1(settings["TRIGGER MESSAGE"])
                     timers.setTimer("1", settings["COOLDOWN"])
@@ -136,12 +136,12 @@ def watchChannel2():
             else:
                 # All these things break apart the given chat message to make things easier to work with.
                 user = misc.getUser(line)
-                message = str(misc.getMessage(line))
+                message = str(misc.getMessage(line)).strip().replace("\r", "")
                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
                 print(("CHANNEL2 - (" + misc.formatTime() + ")>> " + user + ": " + message))
 
-                if settings["TRIGGER MESSAGE"] in message and not timers.C2Cooldown:
+                if settings["TRIGGER MESSAGE"] == message and not timers.C2Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage2(settings["TRIGGER MESSAGE"])
                     timers.setTimer("2", settings["COOLDOWN"])
@@ -174,12 +174,12 @@ def watchChannel3():
             else:
                 # All these things break apart the given chat message to make things easier to work with.
                 user = misc.getUser(line)
-                message = str(misc.getMessage(line))
+                message = str(misc.getMessage(line)).strip().replace("\r", "")
                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
                 print(("CHANNEL3 - (" + misc.formatTime() + ")>> " + user + ": " + message))
 
-                if settings["TRIGGER MESSAGE"] in message and not timers.C3Cooldown:
+                if settings["TRIGGER MESSAGE"] == message and not timers.C3Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage3(settings["TRIGGER MESSAGE"])
                     timers.setTimer("3", settings["COOLDOWN"])
@@ -211,12 +211,12 @@ def watchChannel4():
             else:
                 # All these things break apart the given chat message to make things easier to work with.
                 user = misc.getUser(line)
-                message = str(misc.getMessage(line))
+                message = str(misc.getMessage(line)).strip().replace("\r", "")
                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
                 print(("CHANNEL4 - (" + misc.formatTime() + ")>> " + user + ": " + message))
 
-                if settings["TRIGGER MESSAGE"] in message and not timers.C4Cooldown:
+                if settings["TRIGGER MESSAGE"] == message and not timers.C4Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage4(settings["TRIGGER MESSAGE"])
                     timers.setTimer("4", settings["COOLDOWN"])
@@ -249,12 +249,12 @@ def watchChannel5():
             else:
                 # All these things break apart the given chat message to make things easier to work with.
                 user = misc.getUser(line)
-                message = str(misc.getMessage(line))
+                message = str(misc.getMessage(line)).strip().replace("\r", "")
                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
                 print(("CHANNEL5 - (" + misc.formatTime() + ")>> " + user + ": " + message))
 
-                if settings["TRIGGER MESSAGE"] in message and not timers.C5Cooldown:
+                if settings["TRIGGER MESSAGE"] == message and not timers.C5Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage5(settings["TRIGGER MESSAGE"])
                     timers.setTimer("5", settings["COOLDOWN"])
