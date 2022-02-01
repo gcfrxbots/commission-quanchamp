@@ -106,7 +106,7 @@ def watchChannel1():
                 if settings["TRIGGER MESSAGE"] == message and not timers.C1Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage1(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("1", settings["COOLDOWN"])
+                    timers.setTimer("1", settings["CHANNEL 1 COOLDOWN"])
                     timers.C1Cooldown = True
 
 
@@ -144,7 +144,7 @@ def watchChannel2():
                 if settings["TRIGGER MESSAGE"] == message and not timers.C2Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage2(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("2", settings["COOLDOWN"])
+                    timers.setTimer("2", settings["CHANNEL 2 COOLDOWN"])
                     timers.C2Cooldown = True
 
 
@@ -182,7 +182,7 @@ def watchChannel3():
                 if settings["TRIGGER MESSAGE"] == message and not timers.C3Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage3(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("3", settings["COOLDOWN"])
+                    timers.setTimer("3", settings["CHANNEL 3 COOLDOWN"])
                     timers.C3Cooldown = True
                     
 def watchChannel4():
@@ -219,7 +219,7 @@ def watchChannel4():
                 if settings["TRIGGER MESSAGE"] == message and not timers.C4Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage4(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("4", settings["COOLDOWN"])
+                    timers.setTimer("4", settings["CHANNEL 4 COOLDOWN"])
                     timers.C4Cooldown = True
                     
 def watchChannel5():
@@ -257,7 +257,7 @@ def watchChannel5():
                 if settings["TRIGGER MESSAGE"] == message and not timers.C5Cooldown:
                     time.sleep(random.uniform(10, 30))
                     chatConnection.sendMessage5(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("5", settings["COOLDOWN"])
+                    timers.setTimer("5", settings["CHANNEL 5 COOLDOWN"])
                     timers.C5Cooldown = True
 
 

@@ -26,12 +26,16 @@ defaultSettings = [
     ("BOT NAME", "", "Your bot's Twitch username, all lowercase."),
     ("", "", ""),
     ("CHANNEL 1 NAME", "", "The twitch username of the first channel to watch the chat of, all lowercase."),
+    ("CHANNEL 1 COOLDOWN", "90", "Cooldown for the first channel"),
     ("CHANNEL 2 NAME", "", "The twitch username of the second channel to watch the chat of, all lowercase."),
+    ("CHANNEL 2 COOLDOWN", "90", "Cooldown for the second channel"),
     ("CHANNEL 3 NAME", "", "The twitch username of the third channel to watch the chat of, all lowercase."),
+    ("CHANNEL 3 COOLDOWN", "90", "Cooldown for the third channel"),
     ("CHANNEL 4 NAME", "", "The twitch username of the fourth channel to watch the chat of, all lowercase."),
+    ("CHANNEL 4 COOLDOWN", "90", "Cooldown for the fourth channel"),
     ("CHANNEL 5 NAME", "", "The twitch username of the fifth channel to watch the chat of, all lowercase."),
+    ("CHANNEL 5 COOLDOWN", "90", "Cooldown for the fifth channel"),
     ("TRIGGER MESSAGE", "!play", "The message that triggers the bot, and the bot will respond with the same message"),
-    ("COOLDOWN", "90", "The bot will wait this many seconds between sending the TRIGGER MESSAGE to one individual chat."),
 ]
 
 
