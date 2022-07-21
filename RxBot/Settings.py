@@ -25,17 +25,12 @@ defaultSettings = [
     ("BOT OAUTH", "", "To get this oauth code, head here and log in with YOUR BOT'S account: https://twitchapps.com/tmi/"),
     ("BOT NAME", "", "Your bot's Twitch username, all lowercase."),
     ("", "", ""),
-    ("CHANNEL 1 NAME", "", "The twitch username of the first channel to watch the chat of, all lowercase."),
-    ("CHANNEL 1 COOLDOWN", "90", "Cooldown for the first channel"),
-    ("CHANNEL 2 NAME", "", "The twitch username of the second channel to watch the chat of, all lowercase."),
-    ("CHANNEL 2 COOLDOWN", "90", "Cooldown for the second channel"),
-    ("CHANNEL 3 NAME", "", "The twitch username of the third channel to watch the chat of, all lowercase."),
-    ("CHANNEL 3 COOLDOWN", "90", "Cooldown for the third channel"),
-    ("CHANNEL 4 NAME", "", "The twitch username of the fourth channel to watch the chat of, all lowercase."),
-    ("CHANNEL 4 COOLDOWN", "90", "Cooldown for the fourth channel"),
-    ("CHANNEL 5 NAME", "", "The twitch username of the fifth channel to watch the chat of, all lowercase."),
-    ("CHANNEL 5 COOLDOWN", "90", "Cooldown for the fifth channel"),
-    ("TRIGGER MESSAGE", "!play", "The message that triggers the bot, and the bot will respond with the same message"),
+    ("CHANNEL NAME", "", "The twitch username of the channel to watch the chat of, all lowercase."),
+    ("SEND WHEN OFFLINE", "Yes", "Set to Yes to send messages if the streamer is offline, or No to only send when the streamer is live."),
+    ("COOLDOWN", "90", "How long the bot waits after sending RESPONSE before it can send another response."),
+    ("TRIGGER MESSAGE", "!gamble", "The message that triggers the bot to send RESPONSE after DELAY. Searches each message for this string (!gamble 5k works if the setting is !gamble)"),
+    ("RESPONSE", "!gamble 1k", "After the bot gets a valid TRIGGER MESSAGE, it will wait DELAY seconds then send this message."),
+    ("DELAY", "60", "How many seconds to wait after the bot sees a valid TRIGGER MESSAGE before sending the RESPONSE."),
 ]
 
 

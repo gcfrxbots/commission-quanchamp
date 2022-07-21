@@ -25,12 +25,18 @@ class socketConnection:
         self.socketConn5 = socket.socket()
 
     def sendMessage1(self, message):
-        if streamOnline(settings["CHANNEL 1 NAME"]):
+
+        if not settings["SEND WHEN OFFLINE"]:
+            if streamOnline(settings["CHANNEL NAME"]):
+                messageThread = Thread(target=chatConnection.M1, args=(message,))
+                messageThread.start()
+                messageThread.join()
+            else:
+                print("Streamer offline, not sending anything")
+        else:
             messageThread = Thread(target=chatConnection.M1, args=(message,))
             messageThread.start()
             messageThread.join()
-        else:
-            print("Streamer offline, not sending anything")
 
     def sendMessage2(self, message):
         if streamOnline(settings["CHANNEL 2 NAME"]):
@@ -68,13 +74,13 @@ class socketConnection:
         self.socketConn1.connect(("irc.chat.twitch.tv", int(settings['PORT'])))
         self.socketConn1.send(("PASS " + settings['BOT OAUTH'] + "\r\n").encode("utf-8"))
         self.socketConn1.send(("NICK " + settings['BOT NAME'] + "\r\n").encode("utf-8"))
-        self.socketConn1.send(("JOIN #" + settings["CHANNEL 1 NAME"] + "\r\n").encode("utf-8"))
+        self.socketConn1.send(("JOIN #" + settings["CHANNEL NAME"] + "\r\n").encode("utf-8"))
         return self.socketConn1
 
     def M1(self, message):
-        messageTemp = "PRIVMSG #" + settings["CHANNEL 1 NAME"] + " : " + message
+        messageTemp = "PRIVMSG #" + settings["CHANNEL NAME"] + " : " + message
         self.socketConn1.send((messageTemp + "\r\n").encode("utf-8"))
-        print("Sent to C1: " + messageTemp)
+        print("Sent: " + messageTemp)
 
     def openSocket2(self):
         self.socketConn2.connect(("irc.chat.twitch.tv", int(settings['PORT'])))

@@ -86,7 +86,7 @@ def watchChannel1():
             chatConnection.socketConn1.close()
             chatConnection.socketConn1 = socket.socket()
             pass
-    print(">> Connection to %s successful" % settings["CHANNEL 1 NAME"])
+    print(">> Connection to %s successful" % settings["CHANNEL NAME"])
     readbuffer = ""
     while True:
         readbuffer = readbuffer + s.recv(1024).decode("utf-8")
@@ -101,164 +101,165 @@ def watchChannel1():
                 message = str(misc.getMessage(line)).strip().replace("\r", "")
                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
-                print(("CHANNEL1 - (" + misc.formatTime() + ")>> " + user + ": " + message))
-
-                if settings["TRIGGER MESSAGE"] == message and not timers.C1Cooldown:
-                    time.sleep(random.uniform(10, 30))
-                    chatConnection.sendMessage1(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("1", settings["CHANNEL 1 COOLDOWN"])
+                print(("(" + misc.formatTime() + ")>> " + user + ": " + message))
+                if settings["TRIGGER MESSAGE"] in message and not timers.C1Cooldown:
+                    print("%s Detected - Waiting %s seconds before sending response." % (settings["TRIGGER MESSAGE"], str(settings["DELAY"])))
+                    time.sleep(settings["DELAY"] + 1)  # Adds an extra second just in case
+                    chatConnection.sendMessage1(settings["RESPONSE"])
+                    timers.setTimer("1", settings["COOLDOWN"])
                     timers.C1Cooldown = True
+                elif timers.C1Cooldown:
+                    print("Still on cooldown, not sending anything yet")
 
-
-def watchChannel2():
-    success = False
-    s = None
-    while not success:
-        try:
-            s = chatConnection.openSocket2()
-            chatConnection.joinRoom(s)
-            success = True
-        except Exception as e:
-            time.sleep(1)
-            s = None
-            chatConnection.socketConn2.close()
-            chatConnection.socketConn2 = socket.socket()
-            pass
-    print(">> Connection to %s successful" % settings["CHANNEL 2 NAME"])
-    readbuffer = ""
-    while True:
-        readbuffer = readbuffer + s.recv(1024).decode("utf-8")
-        temp = readbuffer.split("\n")
-        readbuffer = temp.pop()
-        for line in temp:
-            if "PING" in line:
-                s.send(bytes("PONG :tmi.twitch.tv\r\n".encode("utf-8")))
-            else:
-                # All these things break apart the given chat message to make things easier to work with.
-                user = misc.getUser(line)
-                message = str(misc.getMessage(line)).strip().replace("\r", "")
-                command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
-                cmdArguments = message.replace(command or "\r" or "\n", "").strip()
-                print(("CHANNEL2 - (" + misc.formatTime() + ")>> " + user + ": " + message))
-
-                if settings["TRIGGER MESSAGE"] == message and not timers.C2Cooldown:
-                    time.sleep(random.uniform(10, 30))
-                    chatConnection.sendMessage2(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("2", settings["CHANNEL 2 COOLDOWN"])
-                    timers.C2Cooldown = True
-
-
-def watchChannel3():
-    success = False
-    s = None
-    while not success:
-        try:
-            s = chatConnection.openSocket3()
-            chatConnection.joinRoom(s)
-            success = True
-        except Exception as e:
-            time.sleep(1)
-            s = None
-            chatConnection.socketConn3.close()
-            chatConnection.socketConn3 = socket.socket()
-            pass
-    print(">> Connection to %s successful" % settings["CHANNEL 3 NAME"])
-    readbuffer = ""
-    while True:
-        readbuffer = readbuffer + s.recv(1024).decode("utf-8")
-        temp = readbuffer.split("\n")
-        readbuffer = temp.pop()
-        for line in temp:
-            if "PING" in line:
-                s.send(bytes("PONG :tmi.twitch.tv\r\n".encode("utf-8")))
-            else:
-                # All these things break apart the given chat message to make things easier to work with.
-                user = misc.getUser(line)
-                message = str(misc.getMessage(line)).strip().replace("\r", "")
-                command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
-                cmdArguments = message.replace(command or "\r" or "\n", "").strip()
-                print(("CHANNEL3 - (" + misc.formatTime() + ")>> " + user + ": " + message))
-
-                if settings["TRIGGER MESSAGE"] == message and not timers.C3Cooldown:
-                    time.sleep(random.uniform(10, 30))
-                    chatConnection.sendMessage3(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("3", settings["CHANNEL 3 COOLDOWN"])
-                    timers.C3Cooldown = True
-                    
-def watchChannel4():
-    success = False
-    s = None
-    while not success:
-        try:
-            s = chatConnection.openSocket4()
-            chatConnection.joinRoom(s)
-            success = True
-        except Exception as e:
-            time.sleep(1)
-            s = None
-            chatConnection.socketConn4.close()
-            chatConnection.socketConn4 = socket.socket()
-            pass
-    print(">> Connection to %s successful" % settings["CHANNEL 4 NAME"])
-    readbuffer = ""
-    while True:
-        readbuffer = readbuffer + s.recv(1024).decode("utf-8")
-        temp = readbuffer.split("\n")
-        readbuffer = temp.pop()
-        for line in temp:
-            if "PING" in line:
-                s.send(bytes("PONG :tmi.twitch.tv\r\n".encode("utf-8")))
-            else:
-                # All these things break apart the given chat message to make things easier to work with.
-                user = misc.getUser(line)
-                message = str(misc.getMessage(line)).strip().replace("\r", "")
-                command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
-                cmdArguments = message.replace(command or "\r" or "\n", "").strip()
-                print(("CHANNEL4 - (" + misc.formatTime() + ")>> " + user + ": " + message))
-
-                if settings["TRIGGER MESSAGE"] == message and not timers.C4Cooldown:
-                    time.sleep(random.uniform(10, 30))
-                    chatConnection.sendMessage4(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("4", settings["CHANNEL 4 COOLDOWN"])
-                    timers.C4Cooldown = True
-                    
-def watchChannel5():
-    success = False
-    s = None
-    while not success:
-        try:
-            s = chatConnection.openSocket5()
-            chatConnection.joinRoom(s)
-            success = True
-        except Exception as e:
-            time.sleep(1)
-            s = None
-            chatConnection.socketConn5.close()
-            chatConnection.socketConn5 = socket.socket()
-            pass
-    print(">> Connection to %s successful" % settings["CHANNEL 5 NAME"])
-    readbuffer = ""
-    while True:
-        readbuffer = readbuffer + s.recv(1024).decode("utf-8")
-        print(readbuffer)
-        temp = readbuffer.split("\n")
-        readbuffer = temp.pop()
-        for line in temp:
-            if "PING" in line:
-                s.send(bytes("PONG :tmi.twitch.tv\r\n".encode("utf-8")))
-            else:
-                # All these things break apart the given chat message to make things easier to work with.
-                user = misc.getUser(line)
-                message = str(misc.getMessage(line)).strip().replace("\r", "")
-                command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
-                cmdArguments = message.replace(command or "\r" or "\n", "").strip()
-                print(("CHANNEL5 - (" + misc.formatTime() + ")>> " + user + ": " + message))
-
-                if settings["TRIGGER MESSAGE"] == message and not timers.C5Cooldown:
-                    time.sleep(random.uniform(10, 30))
-                    chatConnection.sendMessage5(settings["TRIGGER MESSAGE"])
-                    timers.setTimer("5", settings["CHANNEL 5 COOLDOWN"])
-                    timers.C5Cooldown = True
+# def watchChannel2():
+#     success = False
+#     s = None
+#     while not success:
+#         try:
+#             s = chatConnection.openSocket2()
+#             chatConnection.joinRoom(s)
+#             success = True
+#         except Exception as e:
+#             time.sleep(1)
+#             s = None
+#             chatConnection.socketConn2.close()
+#             chatConnection.socketConn2 = socket.socket()
+#             pass
+#     print(">> Connection to %s successful" % settings["CHANNEL 2 NAME"])
+#     readbuffer = ""
+#     while True:
+#         readbuffer = readbuffer + s.recv(1024).decode("utf-8")
+#         temp = readbuffer.split("\n")
+#         readbuffer = temp.pop()
+#         for line in temp:
+#             if "PING" in line:
+#                 s.send(bytes("PONG :tmi.twitch.tv\r\n".encode("utf-8")))
+#             else:
+#                 # All these things break apart the given chat message to make things easier to work with.
+#                 user = misc.getUser(line)
+#                 message = str(misc.getMessage(line)).strip().replace("\r", "")
+#                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
+#                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
+#                 print(("CHANNEL2 - (" + misc.formatTime() + ")>> " + user + ": " + message))
+#
+#                 if settings["TRIGGER MESSAGE"] == message and not timers.C2Cooldown:
+#                     time.sleep(random.uniform(10, 30))
+#                     chatConnection.sendMessage2(settings["TRIGGER MESSAGE"])
+#                     timers.setTimer("2", settings["CHANNEL 2 COOLDOWN"])
+#                     timers.C2Cooldown = True
+#
+#
+# def watchChannel3():
+#     success = False
+#     s = None
+#     while not success:
+#         try:
+#             s = chatConnection.openSocket3()
+#             chatConnection.joinRoom(s)
+#             success = True
+#         except Exception as e:
+#             time.sleep(1)
+#             s = None
+#             chatConnection.socketConn3.close()
+#             chatConnection.socketConn3 = socket.socket()
+#             pass
+#     print(">> Connection to %s successful" % settings["CHANNEL 3 NAME"])
+#     readbuffer = ""
+#     while True:
+#         readbuffer = readbuffer + s.recv(1024).decode("utf-8")
+#         temp = readbuffer.split("\n")
+#         readbuffer = temp.pop()
+#         for line in temp:
+#             if "PING" in line:
+#                 s.send(bytes("PONG :tmi.twitch.tv\r\n".encode("utf-8")))
+#             else:
+#                 # All these things break apart the given chat message to make things easier to work with.
+#                 user = misc.getUser(line)
+#                 message = str(misc.getMessage(line)).strip().replace("\r", "")
+#                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
+#                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
+#                 print(("CHANNEL3 - (" + misc.formatTime() + ")>> " + user + ": " + message))
+#
+#                 if settings["TRIGGER MESSAGE"] == message and not timers.C3Cooldown:
+#                     time.sleep(random.uniform(10, 30))
+#                     chatConnection.sendMessage3(settings["TRIGGER MESSAGE"])
+#                     timers.setTimer("3", settings["CHANNEL 3 COOLDOWN"])
+#                     timers.C3Cooldown = True
+#
+# def watchChannel4():
+#     success = False
+#     s = None
+#     while not success:
+#         try:
+#             s = chatConnection.openSocket4()
+#             chatConnection.joinRoom(s)
+#             success = True
+#         except Exception as e:
+#             time.sleep(1)
+#             s = None
+#             chatConnection.socketConn4.close()
+#             chatConnection.socketConn4 = socket.socket()
+#             pass
+#     print(">> Connection to %s successful" % settings["CHANNEL 4 NAME"])
+#     readbuffer = ""
+#     while True:
+#         readbuffer = readbuffer + s.recv(1024).decode("utf-8")
+#         temp = readbuffer.split("\n")
+#         readbuffer = temp.pop()
+#         for line in temp:
+#             if "PING" in line:
+#                 s.send(bytes("PONG :tmi.twitch.tv\r\n".encode("utf-8")))
+#             else:
+#                 # All these things break apart the given chat message to make things easier to work with.
+#                 user = misc.getUser(line)
+#                 message = str(misc.getMessage(line)).strip().replace("\r", "")
+#                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
+#                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
+#                 print(("CHANNEL4 - (" + misc.formatTime() + ")>> " + user + ": " + message))
+#
+#                 if settings["TRIGGER MESSAGE"] == message and not timers.C4Cooldown:
+#                     time.sleep(random.uniform(10, 30))
+#                     chatConnection.sendMessage4(settings["TRIGGER MESSAGE"])
+#                     timers.setTimer("4", settings["CHANNEL 4 COOLDOWN"])
+#                     timers.C4Cooldown = True
+#
+# def watchChannel5():
+#     success = False
+#     s = None
+#     while not success:
+#         try:
+#             s = chatConnection.openSocket5()
+#             chatConnection.joinRoom(s)
+#             success = True
+#         except Exception as e:
+#             time.sleep(1)
+#             s = None
+#             chatConnection.socketConn5.close()
+#             chatConnection.socketConn5 = socket.socket()
+#             pass
+#     print(">> Connection to %s successful" % settings["CHANNEL 5 NAME"])
+#     readbuffer = ""
+#     while True:
+#         readbuffer = readbuffer + s.recv(1024).decode("utf-8")
+#         print(readbuffer)
+#         temp = readbuffer.split("\n")
+#         readbuffer = temp.pop()
+#         for line in temp:
+#             if "PING" in line:
+#                 s.send(bytes("PONG :tmi.twitch.tv\r\n".encode("utf-8")))
+#             else:
+#                 # All these things break apart the given chat message to make things easier to work with.
+#                 user = misc.getUser(line)
+#                 message = str(misc.getMessage(line)).strip().replace("\r", "")
+#                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
+#                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
+#                 print(("CHANNEL5 - (" + misc.formatTime() + ")>> " + user + ": " + message))
+#
+#                 if settings["TRIGGER MESSAGE"] == message and not timers.C5Cooldown:
+#                     time.sleep(random.uniform(10, 30))
+#                     chatConnection.sendMessage5(settings["TRIGGER MESSAGE"])
+#                     timers.setTimer("5", settings["CHANNEL 5 COOLDOWN"])
+#                     timers.C5Cooldown = True
 
 
 
@@ -293,23 +294,22 @@ if __name__ == "__main__":
     misc = runMiscControls()
 
     t1 = Thread(target=watchChannel1)
-    t2 = Thread(target=watchChannel2)
-    t3 = Thread(target=watchChannel3)
-    t4 = Thread(target=watchChannel4)
-    t5 = Thread(target=watchChannel5)
+    # t2 = Thread(target=watchChannel2)
+    # t3 = Thread(target=watchChannel3)
+    # t4 = Thread(target=watchChannel4)
+    # t5 = Thread(target=watchChannel5)
     t6 = Thread(target=console)
     t7 = Thread(target=tick)
 
     t1.start()
-    time.sleep(1)
-    t2.start()
-    time.sleep(1)
-    t3.start()
-    time.sleep(1)
-    t4.start()
-    time.sleep(1)
-    t5.start()
-    time.sleep(1)
+    # t2.start()
+    # time.sleep(1)
+    # t3.start()
+    # time.sleep(1)
+    # t4.start()
+    # time.sleep(1)
+    # t5.start()
+    # time.sleep(1)
     t6.start()
     t7.start()
 
