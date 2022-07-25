@@ -102,12 +102,21 @@ def watchChannel1():
                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
                 print(("(" + misc.formatTime() + ")>> " + user + ": " + message))
-                if settings["TRIGGER MESSAGE"] in message and not timers.C1Cooldown:
-                    print("%s Detected - Waiting %s seconds before sending response." % (settings["TRIGGER MESSAGE"], str(settings["DELAY"])))
-                    time.sleep(settings["DELAY"] + 1)  # Adds an extra second just in case
-                    chatConnection.sendMessage1(settings["RESPONSE"])
-                    timers.setTimer("1", settings["COOLDOWN"])
+                if settings["TRIGGER MESSAGE 1"] in message and not timers.C1Cooldown:
+                    print("%s Detected - Waiting %s seconds before sending response." % (settings["TRIGGER MESSAGE 1"], str(settings["DELAY 1"])))
+                    time.sleep(settings["DELAY 1"] + 1)  # Adds an extra second just in case
+                    chatConnection.sendMessage1(settings["RESPONSE 1"])
+                    timers.setTimer("1", settings["COOLDOWN 1"])
                     timers.C1Cooldown = True
+
+                elif settings["TRIGGER MESSAGE 2"] in message and not timers.C2Cooldown:
+                    print("%s Detected - Waiting %s seconds before sending response." % (settings["TRIGGER MESSAGE 2"], str(settings["DELAY 2"])))
+                    time.sleep(settings["DELAY 2"] + 1)  # Adds an extra second just in case
+                    chatConnection.sendMessage1(settings["RESPONSE 2"])
+                    timers.setTimer("2", settings["COOLDOWN 2"])
+                    timers.C2Cooldown = True
+
+
                 elif timers.C1Cooldown:
                     print("Still on cooldown, not sending anything yet")
 

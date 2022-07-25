@@ -27,10 +27,16 @@ defaultSettings = [
     ("", "", ""),
     ("CHANNEL NAME", "", "The twitch username of the channel to watch the chat of, all lowercase."),
     ("SEND WHEN OFFLINE", "Yes", "Set to Yes to send messages if the streamer is offline, or No to only send when the streamer is live."),
-    ("COOLDOWN", "90", "How long the bot waits after sending RESPONSE before it can send another response."),
-    ("TRIGGER MESSAGE", "!gamble", "The message that triggers the bot to send RESPONSE after DELAY. Searches each message for this string (!gamble 5k works if the setting is !gamble)"),
-    ("RESPONSE", "!gamble 1k", "After the bot gets a valid TRIGGER MESSAGE, it will wait DELAY seconds then send this message."),
-    ("DELAY", "60", "How many seconds to wait after the bot sees a valid TRIGGER MESSAGE before sending the RESPONSE."),
+    ("", "", ""),
+    ("TRIGGER MESSAGE 1", "!gamble", "The message that triggers the bot to send RESPONSE 1 after DELAY 1. Searches each message for this string (!gamble 5k works if the setting is !gamble)"),
+    ("RESPONSE 1", "!gamble 1k", "After the bot gets a valid TRIGGER MESSAGE 1, it will wait DELAY 1 seconds then send this message."),
+    ("DELAY 1", "60", "How many seconds to wait after the bot sees a valid TRIGGER MESSAGE 1 before sending the RESPONSE 1."),
+    ("COOLDOWN 1", "90", "How long the bot waits after sending RESPONSE 1 before it can send another response."),
+    ("", "", ""),
+    ("TRIGGER MESSAGE 2", "!play", "The message that triggers the bot to send RESPONSE 2 after DELAY 2. Searches each message for this string (!gamble 5k works if the setting is !gamble)"),
+    ("RESPONSE 2", "!play", "After the bot gets a valid TRIGGER MESSAGE 2, it will wait DELAY 2 seconds then send this message."),
+    ("DELAY 2", "60", "How many seconds to wait after the bot sees a valid TRIGGER MESSAGE 2 before sending the RESPONSE 2."),
+    ("COOLDOWN 2", "90", "How long the bot waits after sending RESPONSE 2 before it can send another response."),
 ]
 
 
