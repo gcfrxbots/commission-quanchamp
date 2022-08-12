@@ -27,6 +27,26 @@ class runMiscControls:
     def formatTime(self):
         return datetime.datetime.today().now().strftime("%I:%M")
 
+    def isInt(self, value):
+        try:
+            int(value)
+            return True
+        except ValueError:
+            return False
+
+    def duelLogic(self, message):
+        msgArgs = message.split()[-1]
+
+        if not self.isInt(msgArgs):  # Its a string, deny it
+            return "!deny"
+        else:
+            value = int(msgArgs)
+            if value > settings["DUEL LIMIT"]:
+                return "!deny"
+
+        return "!accept"
+
+
 
 def runcommand(command, cmdArguments, user, mute):
     commands = {**commands_CustomCommands}
@@ -102,6 +122,7 @@ def watchChannel1():
                 command = ((message.split(' ', 1)[0]).lower()).replace("\r", "")
                 cmdArguments = message.replace(command or "\r" or "\n", "").strip()
                 print(("(" + misc.formatTime() + ")>> " + user + ": " + message))
+                print("!duel @%s" % settings["BOT NAME"])
                 if settings["TRIGGER MESSAGE 1"] in message and not timers.C1Cooldown:
                     print("%s Detected - Waiting %s seconds before sending response." % (settings["TRIGGER MESSAGE 1"], str(settings["DELAY 1"])))
                     time.sleep(settings["DELAY 1"] + 1)  # Adds an extra second just in case
@@ -117,7 +138,19 @@ def watchChannel1():
                     timers.C2Cooldown = True
 
 
+                elif ("!duel @%s" % settings["BOT NAME"]) in message and not timers.C3Cooldown:
+                    print("!duel Detected - Waiting %s seconds before sending response." % str(settings["DUEL DELAY"]))
+                    time.sleep(settings["DUEL DELAY"] + 1)  # Adds an extra second just in case
+                    chatConnection.sendMessage1(misc.duelLogic(message))
+                    timers.setTimer("3", settings["DUEL COOLDOWN"])
+                    timers.C3Cooldown = True
+
+
                 elif timers.C1Cooldown:
+                    print("Still on cooldown, not sending anything yet")
+                elif timers.C2Cooldown:
+                    print("Still on cooldown, not sending anything yet")
+                elif timers.C3Cooldown:
                     print("Still on cooldown, not sending anything yet")
 
 # def watchChannel2():

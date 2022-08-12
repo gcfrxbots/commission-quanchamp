@@ -37,6 +37,10 @@ defaultSettings = [
     ("RESPONSE 2", "!play", "After the bot gets a valid TRIGGER MESSAGE 2, it will wait DELAY 2 seconds then send this message."),
     ("DELAY 2", "60", "How many seconds to wait after the bot sees a valid TRIGGER MESSAGE 2 before sending the RESPONSE 2."),
     ("COOLDOWN 2", "90", "How long the bot waits after sending RESPONSE 2 before it can send another response."),
+    ("", "", ""),
+    ("DUEL DELAY", "5", "How many seconds to wait after the bot sees a valid !duel message before sending the response."),
+    ("DUEL COOLDOWN", "30", "How long the bot waits after sending a duel response before it can send another response."),
+    ("DUEL LIMIT", "1000", "If the requested duel amount is less than or equal to this number, it will accept. If its greater than the number (or All), it will deny."),
 ]
 
 
