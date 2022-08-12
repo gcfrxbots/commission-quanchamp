@@ -138,7 +138,7 @@ def watchChannel1():
                     timers.C2Cooldown = True
 
 
-                elif ("!duel @%s" % settings["BOT NAME"]) in message and not timers.C3Cooldown:
+                elif ("!duel @%s" % settings["BOT NAME"]).lower() in message.lower() and not timers.C3Cooldown:
                     print("!duel Detected - Waiting %s seconds before sending response." % str(settings["DUEL DELAY"]))
                     time.sleep(settings["DUEL DELAY"] + 1)  # Adds an extra second just in case
                     chatConnection.sendMessage1(misc.duelLogic(message))
