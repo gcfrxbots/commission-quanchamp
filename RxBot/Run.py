@@ -36,6 +36,7 @@ class runMiscControls:
 
     def duelLogic(self, message):
         msgArgs = message.split()[-1]
+        msgArgs = msgArgs.lower().replace("k", "000")
 
         if not self.isInt(msgArgs):  # Its a string, deny it
             return "!deny"
